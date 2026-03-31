@@ -4,7 +4,6 @@ import {
   ArrowLeft,
   ChevronDown,
   ChevronRight,
-  Sparkles,
 } from 'lucide-react'
 import { motion } from 'framer-motion'
 import hero1 from '../assets/images/HERO1.webp'
@@ -183,7 +182,6 @@ function Hero() {
             variants={fadeUp}
             className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-white/35 bg-white/10 px-5 py-3 text-sm font-medium text-white shadow-[0_8px_24px_rgba(0,0,0,0.18)] backdrop-blur"
           >
-            <Sparkles className="h-4 w-4" />
             {slides[activeSlide].eyebrow}
           </motion.div>
           <h1 className="mx-auto max-w-[78rem] font-display text-[3.1rem] font-bold leading-[0.9] tracking-[-0.055em] text-white sm:text-[4.25rem] lg:text-[5.95rem]">
