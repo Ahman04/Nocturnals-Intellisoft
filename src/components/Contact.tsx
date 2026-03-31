@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import {
   Clock3,
   Mail,
@@ -6,6 +7,8 @@ import {
   Phone,
   Send,
 } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { fadeLeft, fadeRight, fadeUp } from '../lib/motion'
 
 const contactItems = [
   {
@@ -41,13 +44,31 @@ const businessHours = [
 ]
 
 function Contact() {
+  const [isSubmitted, setIsSubmitted] = useState(false)
+
+  useEffect(() => {
+    if (!isSubmitted) {
+      return
+    }
+
+    const timeout = window.setTimeout(() => setIsSubmitted(false), 2400)
+
+    return () => window.clearTimeout(timeout)
+  }, [isSubmitted])
+
   return (
     <section id="contact" className="contact-shell">
       <div className="contact-shell__glow contact-shell__glow--left" />
       <div className="contact-shell__glow contact-shell__glow--right" />
 
       <div className="contact-shell__inner">
-        <div className="contact-heading">
+        <motion.div
+          className="contact-heading"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.25 }}
+        >
           <p className="contact-kicker">Contact</p>
           <h2 className="contact-title">
             Have questions or ready to get started? Contact us today.
@@ -56,10 +77,16 @@ function Contact() {
             Speak with our team about AI systems, automation, custom software, or
             digital modernization. We will help you shape the next practical step.
           </p>
-        </div>
+        </motion.div>
 
         <div className="contact-grid">
-          <article className="contact-card">
+          <motion.article
+            className="contact-card"
+            variants={fadeLeft}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
             <h3 className="contact-card__title">Get In Touch</h3>
 
             <div className="contact-card__info-list">
@@ -99,14 +126,27 @@ function Contact() {
                 ))}
               </div>
             </div>
-          </article>
+          </motion.article>
 
-          <article className="contact-card contact-card--form">
+          <motion.article
+            id="contact-form"
+            className="contact-card contact-card--form"
+            variants={fadeRight}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
             <h3 className="contact-card__title contact-card__title--accent">
               Send Us a Message
             </h3>
 
-            <form className="contact-form">
+            <form
+              className="contact-form"
+              onSubmit={(event) => {
+                event.preventDefault()
+                setIsSubmitted(true)
+              }}
+            >
               <label className="contact-form__field">
                 <span className="contact-form__label">Full Name</span>
                 <input
@@ -142,16 +182,23 @@ function Contact() {
                 />
               </label>
 
-              <button type="submit" className="contact-form__submit">
-                Send Message
+              <button
+                type="submit"
+                className={`contact-form__submit ${
+                  isSubmitted ? 'contact-form__submit--success' : ''
+                }`}
+              >
+                {isSubmitted ? 'Message Sent' : 'Send Message'}
                 <Send className="h-4 w-4" />
               </button>
 
-              <p className="contact-form__note">
-                Your message will be sent to our team via email.
+              <p className={`contact-form__note ${isSubmitted ? 'contact-form__note--success' : ''}`}>
+                {isSubmitted
+                  ? 'Thanks. Your message has been queued for the team.'
+                  : 'Your message will be sent to our team via email.'}
               </p>
             </form>
-          </article>
+          </motion.article>
         </div>
 
         <div className="contact-map contact-map--wide">

@@ -1,4 +1,6 @@
 import { Star } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { fadeUp } from '../lib/motion'
 
 const testimonials = [
   {
@@ -32,26 +34,44 @@ const sliderCards = [...testimonials, ...testimonials]
 function Testimonials() {
   return (
     <section className="testimonials-shell" aria-label="Client testimonials">
-      <div className="testimonials-heading">
+      <motion.div
+        className="testimonials-heading"
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+      >
         <h2 className="testimonials-title">What Our Clients Say</h2>
         <p className="testimonials-copy">
           Real feedback from businesses we&apos;ve helped transform.
         </p>
-      </div>
+      </motion.div>
 
       <div className="testimonials-viewport">
         <div className="testimonials-track">
           {sliderCards.map((item, index) => (
-            <article
+            <motion.article
               key={`${item.name}-${index}`}
               className="testimonial-card"
               aria-hidden={index >= testimonials.length}
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              whileHover={{ y: -8, rotateX: 2, rotateY: index % 2 === 0 ? -2 : 2 }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
             >
-              <div className="testimonial-stars" aria-label="5 star rating">
+              <motion.div
+                className="testimonial-stars"
+                aria-label="5 star rating"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.35, delay: 0.1 }}
+              >
                 {Array.from({ length: 5 }).map((_, starIndex) => (
                   <Star key={starIndex} className="h-5 w-5 fill-current" />
                 ))}
-              </div>
+              </motion.div>
 
               <p className="testimonial-quote">&ldquo;{item.quote}&rdquo;</p>
 
@@ -68,7 +88,7 @@ function Testimonials() {
                   <p className="testimonial-role">{item.role}</p>
                 </div>
               </div>
-            </article>
+            </motion.article>
           ))}
         </div>
       </div>

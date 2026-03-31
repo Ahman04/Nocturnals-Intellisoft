@@ -1,5 +1,7 @@
 import { Bot, Palette, Settings2 } from 'lucide-react'
+import { motion } from 'framer-motion'
 import aboutImage from '../assets/images/about.png'
+import { fadeLeft, fadeRight, fadeUp, staggerContainer } from '../lib/motion'
 
 const highlights = [
   {
@@ -21,8 +23,14 @@ const highlights = [
 
 function About() {
   return (
-    <section id="about" className="about-shell">
-      <div className="about-copy">
+    <section id="about" className="about-shell ambient-section">
+      <motion.div
+        className="about-copy"
+        variants={fadeLeft}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.25 }}
+      >
         <p className="section-kicker">About us</p>
         <h2 className="about-title">About Nocturnals Intellisoft</h2>
 
@@ -43,12 +51,18 @@ function About() {
           build software, we build intelligent systems for the future.
         </p>
 
-        <div className="about-highlights">
+        <motion.div
+          className="about-highlights"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
           {highlights.map((item) => {
             const Icon = item.icon
 
             return (
-              <div key={item.title} className="about-highlight">
+              <motion.div key={item.title} className="about-highlight" variants={fadeUp}>
                 <div className="about-highlight__icon">
                   <Icon className="h-5 w-5" />
                 </div>
@@ -56,21 +70,31 @@ function About() {
                   <h3 className="about-highlight__title">{item.title}</h3>
                   <p className="about-highlight__text">{item.text}</p>
                 </div>
-              </div>
+              </motion.div>
             )
           })}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
-      <div className="about-media">
-        <div className="about-image-frame">
+      <motion.div
+        className="about-media"
+        variants={fadeRight}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.25 }}
+      >
+        <motion.div
+          className="about-image-frame"
+          whileHover={{ y: -6, rotate: -1, scale: 1.01 }}
+          transition={{ duration: 0.3, ease: 'easeOut' }}
+        >
           <img
             src={aboutImage}
             alt="Nocturnals Intellisoft engineering workspace"
             className="about-image"
           />
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   )
 }

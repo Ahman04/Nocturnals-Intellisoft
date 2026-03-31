@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { motion } from 'framer-motion'
 import logoNocturnals from '../assets/images/logoNocturnals.png'
@@ -16,26 +16,59 @@ const navItems = [
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+  const [activeHref, setActiveHref] = useState('#hero')
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 28)
+
+      let current = '#hero'
+
+      navItems.forEach((item) => {
+        const section = document.querySelector(item.href)
+
+        if (!section) {
+          return
+        }
+
+        const top = section.getBoundingClientRect().top + window.scrollY
+
+        if (window.scrollY >= top - 140) {
+          current = item.href
+        }
+      })
+
+      setActiveHref(current)
+    }
+
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
+
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
     <motion.header
       initial={{ opacity: 0, y: -24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.55, ease: 'easeOut' }}
-      className="sticky top-0 z-50 border-b border-white/10 bg-[#0a2347] shadow-[0_8px_24px_rgba(0,0,0,0.14)] backdrop-blur-xl"
+      className={`nav-shell sticky top-0 z-50 ${
+        isScrolled ? 'nav-shell--compact' : ''
+      }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
-        <a href="#hero" className="flex items-center gap-3">
+        <a href="#hero" className="flex items-center gap-4">
           <img
             src={logoNocturnals}
             alt="Nocturnals Intellisoft logo"
-            className="h-12 w-12 object-contain"
+            className="h-14 w-14 object-contain"
           />
           <div>
-            <p className="font-display text-[1.45rem] font-semibold leading-none tracking-tight text-white">
+            <p className="font-display text-[2rem] font-semibold leading-none tracking-tight text-white">
               Nocturnals
             </p>
-            <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.34em] text-white">
+            <p className="mt-1 text-[11px] font-bold uppercase tracking-[0.38em] text-white">
               Intellisoft
             </p>
           </div>
@@ -46,7 +79,9 @@ function Navbar() {
             <a
               key={item.label}
               href={item.href}
-              className="text-sm font-medium text-[#d9e4ff] transition hover:text-white"
+              className={`nav-link text-sm font-medium transition hover:text-white ${
+                activeHref === item.href ? 'nav-link--active' : 'text-[#d9e4ff]'
+              }`}
             >
               {item.label}
             </a>
@@ -55,7 +90,7 @@ function Navbar() {
 
         <div className="hidden items-center gap-3 lg:flex">
           <a
-            href="#contact"
+            href="#contact-form"
             className="rounded-xl bg-[#1437d4] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#1a42f2]"
           >
             Get a Quote
@@ -87,7 +122,7 @@ function Navbar() {
               </a>
             ))}
             <a
-              href="#contact"
+              href="#contact-form"
               className="mt-3 w-full rounded-xl bg-[#1437d4] px-5 py-3 text-center text-sm font-semibold text-white transition hover:bg-[#1a42f2]"
               onClick={() => setIsOpen(false)}
             >

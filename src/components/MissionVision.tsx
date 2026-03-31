@@ -1,4 +1,6 @@
 import { Eye, Target } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { fadeLeft, fadeRight, staggerContainer } from '../lib/motion'
 
 type TextSegment = {
   text: string
@@ -69,13 +71,24 @@ function renderSegments(segments: TextSegment[]) {
 
 function MissionVision() {
   return (
-    <section className="mission-shell" aria-label="Mission and vision">
-      <div className="mission-grid">
-        {cards.map((card) => {
+    <section className="mission-shell ambient-section" aria-label="Mission and vision">
+      <motion.div
+        className="mission-grid"
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+      >
+        {cards.map((card, index) => {
           const Icon = card.icon
 
           return (
-            <article key={card.title} className="mission-card">
+            <motion.article
+              key={card.title}
+              className="mission-card"
+              variants={index % 2 === 0 ? fadeLeft : fadeRight}
+              whileHover={{ y: -6 }}
+            >
               <div className="mission-card__header">
                 <div className="mission-card__icon">
                   <Icon className="h-7 w-7" />
@@ -86,10 +99,10 @@ function MissionVision() {
               <p className="mission-card__text">
                 {renderSegments(card.textSecondary)}
               </p>
-            </article>
+            </motion.article>
           )
         })}
-      </div>
+      </motion.div>
     </section>
   )
 }

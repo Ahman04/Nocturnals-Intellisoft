@@ -1,7 +1,9 @@
 import { BriefcaseBusiness, GitBranch, Mail, Send } from 'lucide-react'
+import { motion } from 'framer-motion'
 import abdikhafarImage from '../assets/images/OUR TEAM IMAGE/abdikhafar.jpeg'
 import brianImage from '../assets/images/OUR TEAM IMAGE/brian.jpeg'
 import williamImage from '../assets/images/OUR TEAM IMAGE/william.png'
+import { fadeUp, staggerContainer } from '../lib/motion'
 
 const members = [
   {
@@ -32,18 +34,36 @@ const members = [
 function Team() {
   return (
     <section id="team" className="team-shell">
-      <div className="team-heading">
+      <motion.div
+        className="team-heading"
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.25 }}
+      >
         <h2 className="team-title">Meet Our Team</h2>
         <p className="team-copy">
           The talented individuals behind our innovative solutions and exceptional
           service.
         </p>
-      </div>
+      </motion.div>
 
-      <div className="team-grid">
+      <motion.div
+        className="team-grid"
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.15 }}
+      >
         {members.map((member) => (
-          <article key={member.name} className="team-card">
+          <motion.article
+            key={member.name}
+            className="team-card"
+            variants={fadeUp}
+            whileHover={{ y: -10, rotateX: 2, rotateY: -2 }}
+          >
             <div className="team-card__image-wrap">
+              <div className="team-card__image-overlay" />
               <img
                 src={member.image}
                 alt={member.name}
@@ -71,9 +91,9 @@ function Team() {
                 </a>
               </div>
             </div>
-          </article>
+          </motion.article>
         ))}
-      </div>
+      </motion.div>
     </section>
   )
 }

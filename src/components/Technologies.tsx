@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import awsLogo from '../assets/images/amazonwebservices-original-wordmark.svg'
 import dockerLogo from '../assets/images/docker-original.svg'
 import googleCloudLogo from '../assets/images/TECHSSTACK IMAGES/googlecloud-original.svg'
@@ -14,6 +15,7 @@ import pytorchLogo from '../assets/images/TECHSSTACK IMAGES/pytorch-original.svg
 import reactLogo from '../assets/images/TECHSSTACK IMAGES/react-original.svg'
 import tensorflowLogo from '../assets/images/TECHSSTACK IMAGES/tensorflow-original.svg'
 import typescriptLogo from '../assets/images/TECHSSTACK IMAGES/typescript-original.svg'
+import { fadeUp } from '../lib/motion'
 
 const stacks = [
   {
@@ -131,33 +133,44 @@ const stacks = [
 ]
 
 function Technologies() {
+  const marqueeStacks = [...stacks, ...stacks]
+
   return (
-    <section id="technologies" className="technologies-shell">
-      <div className="technologies-heading">
+    <section id="technologies" className="technologies-shell ambient-section">
+      <motion.div
+        className="technologies-heading"
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.25 }}
+      >
         <h2 className="technologies-title">Technologies We Use</h2>
         <p className="technologies-copy">
           We leverage the latest and most reliable technologies to build robust
           solutions.
         </p>
-      </div>
-      <div className="technologies-grid">
-        {stacks.map((stack) => (
-          <article key={stack.title} className="technology-card">
+      </motion.div>
+      <div className="technologies-marquee">
+        <div className="technologies-track">
+          {marqueeStacks.map((stack, stackIndex) => (
+            <article key={`${stack.title}-${stackIndex}`} className="technology-card">
             <div className={`technology-icons technology-icons--${stack.icons.length}`}>
               {stack.icons.map((icon, index) => (
                 <img
-                  key={index}
+                  key={`${stack.title}-${index}`}
                   src={icon.src}
                   alt={icon.alt}
                   className="technology-icon-image"
                   loading="lazy"
+                  style={{ animationDelay: `${(index + stackIndex) * 0.22}s` }}
                 />
               ))}
             </div>
             <h3 className="technology-title">{stack.title}</h3>
             <p className="technology-label">{stack.label}</p>
           </article>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   )

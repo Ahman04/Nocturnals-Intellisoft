@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
   ArrowRight,
   ArrowLeft,
@@ -10,11 +10,12 @@ import { motion } from 'framer-motion'
 import hero1 from '../assets/images/HERO1.png'
 import hero2 from '../assets/images/HERO2.png'
 import hero3 from '../assets/images/hero3.png'
+import { fadeUp, staggerContainer } from '../lib/motion'
 
 const metrics = [
-  { label: 'Solutions delivered', value: '50+' },
-  { label: 'Industries supported', value: '10+' },
-  { label: 'Long-term client focus', value: '100%' },
+  { label: 'Solutions delivered', value: 50, suffix: '+' },
+  { label: 'Industries supported', value: 10, suffix: '+' },
+  { label: 'Long-term client focus', value: 100, suffix: '%' },
 ]
 
 const slides = [
@@ -55,6 +56,20 @@ const slides = [
 
 function Hero() {
   const [activeSlide, setActiveSlide] = useState(0)
+  const [pointer, setPointer] = useState({ x: 0, y: 0 })
+  const [metricValues, setMetricValues] = useState(metrics.map(() => 0))
+
+  const particles = useMemo(
+    () =>
+      Array.from({ length: 10 }).map((_, index) => ({
+        id: index,
+        left: `${8 + index * 9}%`,
+        top: `${14 + (index % 5) * 13}%`,
+        delay: `${index * 0.8}s`,
+        duration: `${8 + (index % 4) * 2}s`,
+      })),
+    [],
+  )
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -62,6 +77,27 @@ function Hero() {
     }, 5000)
 
     return () => window.clearInterval(interval)
+  }, [])
+
+  useEffect(() => {
+    let frame = 0
+    const start = performance.now()
+    const duration = 1600
+
+    const tick = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1)
+      const eased = 1 - (1 - progress) ** 3
+
+      setMetricValues(metrics.map((metric) => Math.round(metric.value * eased)))
+
+      if (progress < 1) {
+        frame = window.requestAnimationFrame(tick)
+      }
+    }
+
+    frame = window.requestAnimationFrame(tick)
+
+    return () => window.cancelAnimationFrame(frame)
   }, [])
 
   const goToPrevious = () => {
@@ -73,18 +109,47 @@ function Hero() {
   }
 
   return (
-    <section id="hero" className="hero-stage relative overflow-hidden">
+    <section
+      id="hero"
+      className="hero-stage relative overflow-hidden"
+      onMouseMove={(event) => {
+        const bounds = event.currentTarget.getBoundingClientRect()
+        const x = (event.clientX - bounds.left) / bounds.width - 0.5
+        const y = (event.clientY - bounds.top) / bounds.height - 0.5
+        setPointer({ x, y })
+      }}
+      onMouseLeave={() => setPointer({ x: 0, y: 0 })}
+    >
       {slides.map((slide, index) => (
         <div
           key={slide.image}
           className={`hero-image absolute inset-0 ${
             index === activeSlide ? 'opacity-100' : 'opacity-0'
           }`}
-          style={{ backgroundImage: `url(${slide.image})` }}
+          style={{
+            backgroundImage: `url(${slide.image})`,
+            transform: `scale(${index === activeSlide ? 1.1 : 1.04}) translate3d(${
+              pointer.x * 18
+            }px, ${pointer.y * 18}px, 0)`,
+          }}
         />
       ))}
       <div className="hero-overlay absolute inset-0" />
       <div className="hero-grid absolute inset-0 opacity-30" />
+      <div className="hero-particles" aria-hidden="true">
+        {particles.map((particle) => (
+          <span
+            key={particle.id}
+            className="hero-particle"
+            style={{
+              left: particle.left,
+              top: particle.top,
+              animationDelay: particle.delay,
+              animationDuration: particle.duration,
+            }}
+          />
+        ))}
+      </div>
       <div className="hero-glow hero-glow-left" />
       <div className="hero-glow hero-glow-right" />
 
@@ -108,31 +173,43 @@ function Hero() {
 
       <div className="relative mx-auto flex min-h-[calc(100svh-81px)] max-w-[96rem] flex-col items-center justify-center px-3 py-12 text-center sm:px-4 lg:px-6 lg:py-16">
         <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
+          key={slides[activeSlide].image}
+          variants={staggerContainer}
+          initial="hidden"
+          animate="visible"
           className="w-full max-w-[86rem] pt-4"
         >
-          <div className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-white/35 bg-white/10 px-5 py-3 text-sm font-medium text-white shadow-[0_8px_24px_rgba(0,0,0,0.18)] backdrop-blur">
+          <motion.div
+            variants={fadeUp}
+            className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-white/35 bg-white/10 px-5 py-3 text-sm font-medium text-white shadow-[0_8px_24px_rgba(0,0,0,0.18)] backdrop-blur"
+          >
             <Sparkles className="h-4 w-4" />
             {slides[activeSlide].eyebrow}
-          </div>
+          </motion.div>
           <h1 className="mx-auto max-w-[78rem] font-display text-[3.1rem] font-bold leading-[0.9] tracking-[-0.055em] text-white sm:text-[4.25rem] lg:text-[5.95rem]">
-            {slides[activeSlide].title[0]}
-            <span className="block text-[#93c5fd]">
+            <motion.span variants={fadeUp} className="block">
+              {slides[activeSlide].title[0]}
+            </motion.span>
+            <motion.span variants={fadeUp} className="block text-[#93c5fd]">
               {slides[activeSlide].title[1]}
-            </span>
+            </motion.span>
           </h1>
-          <p className="mx-auto mt-5 max-w-[60rem] text-[1rem] leading-7 text-white sm:text-[1.2rem] sm:leading-8">
+          <motion.p
+            variants={fadeUp}
+            className="mx-auto mt-5 max-w-[60rem] text-[1rem] leading-7 text-white sm:text-[1.2rem] sm:leading-8"
+          >
             <span className="font-bold text-white">
               {slides[activeSlide].description.lead}
             </span>
             <span>{slides[activeSlide].description.rest}</span>
-          </p>
+          </motion.p>
 
-          <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <motion.div
+            variants={fadeUp}
+            className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row"
+          >
             <a
-              href="#contact"
+              href="#contact-form"
               className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#1450ff] px-7 py-4 text-base font-semibold text-white shadow-[0_18px_40px_rgba(20,80,255,0.35)] transition hover:bg-[#2962ff]"
             >
               {slides[activeSlide].primaryCta}
@@ -144,7 +221,7 @@ function Hero() {
             >
               {slides[activeSlide].secondaryCta}
             </a>
-          </div>
+          </motion.div>
         </motion.div>
 
         <motion.div
@@ -167,7 +244,8 @@ function Hero() {
                 className="text-center"
               >
                 <p className="font-display text-[3rem] font-semibold tracking-[-0.04em] text-[#bfdbfe] lg:text-[3.35rem]">
-                  {metric.value}
+                  {metricValues[index]}
+                  {metric.suffix}
                 </p>
                 <p className="mt-1 text-[0.98rem] text-white">{metric.label}</p>
               </motion.div>

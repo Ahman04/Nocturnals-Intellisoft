@@ -6,6 +6,8 @@ import {
   Bot,
   Target,
 } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { fadeLeft, fadeRight, fadeUp, staggerContainer } from '../lib/motion'
 
 const reasons = [
   {
@@ -48,30 +50,47 @@ const reasons = [
 
 function WhyChooseUs() {
   return (
-    <section id="whychooseus" className="why-shell">
-      <div className="why-heading">
+    <section id="whychooseus" className="why-shell ambient-section">
+      <motion.div
+        className="why-heading"
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+      >
         <h2 className="why-title">Why Choose Us</h2>
         <p className="why-copy">
           We deliver enterprise software solutions that combine technical excellence,
           strategic thinking, and proven methodologies to achieve measurable business
           outcomes.
         </p>
-      </div>
-      <div className="why-grid">
-        {reasons.map((reason) => {
+      </motion.div>
+      <motion.div
+        className="why-grid"
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.15 }}
+      >
+        {reasons.map((reason, index) => {
           const Icon = reason.icon
 
           return (
-            <article key={reason.title} className={`why-card ${reason.tone}`}>
+            <motion.article
+              key={reason.title}
+              className={`why-card ${reason.tone}`}
+              variants={index % 2 === 0 ? fadeLeft : fadeRight}
+              whileHover={{ y: -8 }}
+            >
               <div className="why-card__icon">
                 <Icon className="h-8 w-8" />
               </div>
               <h3 className="why-card__title">{reason.title}</h3>
               <p className="why-card__text">{reason.text}</p>
-            </article>
+            </motion.article>
           )
         })}
-      </div>
+      </motion.div>
     </section>
   )
 }

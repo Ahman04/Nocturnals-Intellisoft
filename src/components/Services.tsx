@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import aiImage from '../assets/images/services image/AI .png'
 import apiImage from '../assets/images/services image/API.png'
 import customSoftwareImage from '../assets/images/services image/Custom Software.png'
@@ -6,6 +7,7 @@ import devopsImage from '../assets/images/services image/DevOps.png'
 import enterpriseImage from '../assets/images/services image/Enterprise.png'
 import consultancyImage from '../assets/images/services image/sofware consultancy.png'
 import webAppImage from '../assets/images/services image/webapp.png'
+import { fadeUp, staggerContainer } from '../lib/motion'
 
 const services = [
   {
@@ -61,9 +63,21 @@ const services = [
 function Services() {
   return (
     <section id="services" className="services-shell">
-      <div className="services-grid">
+      <motion.div
+        className="services-grid"
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.14 }}
+      >
         {services.map((service) => (
-          <article key={service.title} className={`service-card ${service.tone}`}>
+          <motion.article
+            key={service.title}
+            className={`service-card ${service.tone}`}
+            variants={fadeUp}
+            whileHover={{ y: -10 }}
+            transition={{ duration: 0.24, ease: 'easeOut' }}
+          >
             <div className="service-card__media">
               <img
                 src={service.image}
@@ -76,9 +90,9 @@ function Services() {
               <h3 className="service-card__title">{service.title}</h3>
               <p className="service-card__text">{service.text}</p>
             </div>
-          </article>
+          </motion.article>
         ))}
-      </div>
+      </motion.div>
     </section>
   )
 }
