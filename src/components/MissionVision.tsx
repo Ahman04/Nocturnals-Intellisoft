@@ -1,5 +1,6 @@
 import { Eye, Target } from 'lucide-react'
 import { motion } from 'framer-motion'
+import missionVisionImage from '../assets/images/misssionvisoion.png'
 import { fadeLeft, fadeRight, staggerContainer } from '../lib/motion'
 
 type TextSegment = {
@@ -11,6 +12,8 @@ const cards = [
   {
     icon: Target,
     title: 'Mission',
+    label: 'Execution Mandate',
+    stat: 'Built for dependable AI operations',
     text: [
       { text: 'Our mission is to build ' },
       { text: 'reliable, secure, and high-quality AI-driven', highlight: true },
@@ -37,6 +40,8 @@ const cards = [
   {
     icon: Eye,
     title: 'Vision',
+    label: 'Future Direction',
+    stat: 'Designed for long-horizon industry change',
     text: [
       { text: 'Our vision is to become a ' },
       { text: 'trusted global AI technology company', highlight: true },
@@ -79,21 +84,37 @@ function MissionVision() {
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
       >
+        <motion.div className="mission-intro" variants={fadeLeft}>
+          <img
+            src={missionVisionImage}
+            alt="Nocturnals Intellisoft team and AI workspace"
+            className="mission-intro__image"
+          />
+          <div className="mission-intro__overlay">
+            <span className="mission-intro__chip">AI-first execution</span>
+            <span className="mission-intro__chip">Reliable systems</span>
+          </div>
+        </motion.div>
+
         {cards.map((card, index) => {
           const Icon = card.icon
 
           return (
             <motion.article
               key={card.title}
-              className="mission-card"
+              className={`mission-card mission-card--${card.title.toLowerCase()}`}
               variants={index % 2 === 0 ? fadeLeft : fadeRight}
               whileHover={{ y: -6 }}
             >
+              <p className="mission-card__label">{card.label}</p>
               <div className="mission-card__header">
                 <div className="mission-card__icon">
                   <Icon className="h-7 w-7" />
                 </div>
-                <h2 className="mission-card__title">{card.title}</h2>
+                <div>
+                  <h2 className="mission-card__title">{card.title}</h2>
+                  <p className="mission-card__stat">{card.stat}</p>
+                </div>
               </div>
               <p className="mission-card__text">{renderSegments(card.text)}</p>
               <p className="mission-card__text">

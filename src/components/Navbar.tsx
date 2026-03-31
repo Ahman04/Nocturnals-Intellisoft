@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { motion } from 'framer-motion'
 import logoNocturnals from '../assets/images/logoNocturnals.png'
+import { ShinyButton } from './ui/shiny-button'
 
 const navItems = [
   { label: 'Home', href: '#hero' },
@@ -18,6 +19,19 @@ function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [activeHref, setActiveHref] = useState('#hero')
   const [isScrolled, setIsScrolled] = useState(false)
+
+  const scrollToQuote = () => {
+    const section = document.querySelector('#contact-form')
+
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      setIsOpen(false)
+      return
+    }
+
+    window.location.hash = 'contact-form'
+    setIsOpen(false)
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -89,12 +103,12 @@ function Navbar() {
         </div>
 
         <div className="hidden items-center gap-3 lg:flex">
-          <a
-            href="#contact-form"
-            className="rounded-xl bg-[#1437d4] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#1a42f2]"
+          <ShinyButton
+            onClick={scrollToQuote}
+            className="min-h-[3rem] px-5 py-3 text-sm font-semibold"
           >
             Get a Quote
-          </a>
+          </ShinyButton>
         </div>
 
         <button
@@ -121,13 +135,12 @@ function Navbar() {
                 {item.label}
               </a>
             ))}
-            <a
-              href="#contact-form"
-              className="mt-3 w-full rounded-xl bg-[#1437d4] px-5 py-3 text-center text-sm font-semibold text-white transition hover:bg-[#1a42f2]"
-              onClick={() => setIsOpen(false)}
+            <ShinyButton
+              onClick={scrollToQuote}
+              className="mt-3 w-full justify-center px-5 py-3 text-sm font-semibold"
             >
               Get a Quote
-            </a>
+            </ShinyButton>
           </div>
         </div>
       ) : null}

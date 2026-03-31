@@ -1,5 +1,4 @@
-import type { CSSProperties } from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import About from './components/About'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
@@ -14,13 +13,17 @@ import Technologies from './components/Technologies'
 import WhyChooseUs from './components/WhyChooseUs'
 
 function App() {
-  const [scrollProgress, setScrollProgress] = useState(0)
+  const progressRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight
-      setScrollProgress(maxScroll > 0 ? scrollTop / maxScroll : 0)
+      const progress = maxScroll > 0 ? scrollTop / maxScroll : 0
+
+      if (progressRef.current) {
+        progressRef.current.style.transform = `scaleX(${progress})`
+      }
     }
 
     handleScroll()
@@ -32,11 +35,8 @@ function App() {
   }, [])
 
   return (
-    <div className="site-shell" style={{} as CSSProperties}>
-      <div
-        className="scroll-progress"
-        style={{ transform: `scaleX(${scrollProgress})` }}
-      />
+    <div className="site-shell">
+      <div ref={progressRef} className="scroll-progress" />
       <Navbar />
       <Hero />
       <About />

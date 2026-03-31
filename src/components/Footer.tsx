@@ -1,62 +1,68 @@
-import { BriefcaseBusiness, GitBranch, Mail, Send } from 'lucide-react'
+import { ArrowRight, Radar } from 'lucide-react'
+import { motion } from 'framer-motion'
+import footerImage from '../assets/images/footer.png'
+import { fadeUp, staggerContainer } from '../lib/motion'
 
-const platformLinks = [
-  'Web Development',
-  'Mobile Apps',
-  'AI Solutions',
-  'Cloud Services',
-  'Portfolio',
+const capabilityLinks = [
+  'AI copilots',
+  'Workflow automation',
+  'Prediction engines',
+  'Cloud-native platforms',
+  'Data intelligence',
 ]
 
-const resourceLinks = [
-  'Documentation',
-  'Help Center',
-  'API Documentation',
-  'System Status',
-  'Contact Support',
+const stackLinks = [
+  'LLM orchestration',
+  'MLOps pipelines',
+  'API architecture',
+  'Observability',
+  'Secure deployment',
 ]
 
 const companyLinks = [
-  'About Us',
-  'Careers',
-  'Blog',
-  'Privacy Policy',
-  'Terms of Service',
+  'AI strategy',
+  'Delivery squad',
+  'Research culture',
+  'Product partnership',
+  'Launch support',
 ]
 
 function Footer() {
   return (
     <footer className="site-footer">
-      <div className="footer-main">
+      <motion.div
+        className="footer-main"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={staggerContainer}
+      >
+        <motion.div className="footer-topline" variants={fadeUp}>
+          <span className="footer-topline__pill">
+            <Radar className="h-4 w-4" />
+            AI-native delivery network
+          </span>
+          <p className="footer-topline__copy">
+            We design products where automation, data, and machine intelligence
+            are part of the operating model from day one.
+          </p>
+        </motion.div>
+
         <div className="footer-grid">
-          <div className="footer-brand">
-            <h3 className="footer-brand__title">Nocturnals Intellisoft</h3>
-            <p className="footer-brand__copy">
-              Empowering businesses with advanced software solutions, real-world
-              expertise, and comprehensive digital transformation through
-              cutting-edge technology.
-            </p>
-
-            <div className="footer-socials">
-              <a href="#contact" className="footer-social" aria-label="LinkedIn">
-                <BriefcaseBusiness className="h-4 w-4" />
-              </a>
-              <a href="#contact" className="footer-social" aria-label="Twitter">
-                <Send className="h-4 w-4" />
-              </a>
-              <a href="#contact" className="footer-social" aria-label="GitHub">
-                <GitBranch className="h-4 w-4" />
-              </a>
-              <a href="#contact" className="footer-social" aria-label="Email">
-                <Mail className="h-4 w-4" />
-              </a>
+          <motion.div className="footer-brand" variants={fadeUp}>
+            <div className="footer-brand__media">
+              <img
+                src={footerImage}
+                alt="Abstract AI systems network"
+                className="footer-brand__image"
+              />
             </div>
-          </div>
+          </motion.div>
 
-          <div>
-            <h4 className="footer-column__title">Platform</h4>
+          <motion.div variants={fadeUp}>
+            <h4 className="footer-column__title">Capabilities</h4>
             <ul className="footer-list">
-              {platformLinks.map((item) => (
+              {capabilityLinks.map((item) => (
                 <li key={item}>
                   <a href="#services" className="footer-list__link">
                     {item}
@@ -64,23 +70,23 @@ function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
-          <div>
-            <h4 className="footer-column__title">Resources</h4>
+          <motion.div variants={fadeUp}>
+            <h4 className="footer-column__title">Architecture</h4>
             <ul className="footer-list">
-              {resourceLinks.map((item) => (
+              {stackLinks.map((item) => (
                 <li key={item}>
-                  <a href="#contact" className="footer-list__link">
+                  <a href="#technologies" className="footer-list__link">
                     {item}
                   </a>
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
-          <div>
-            <h4 className="footer-column__title">Company</h4>
+          <motion.div variants={fadeUp}>
+            <h4 className="footer-column__title">Partnership</h4>
             <ul className="footer-list">
               {companyLinks.map((item) => (
                 <li key={item}>
@@ -90,14 +96,27 @@ function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
         </div>
 
-        <div className="footer-bottom">
+        <motion.div className="footer-cta-panel" variants={fadeUp}>
+          <div>
+            <p className="footer-cta-panel__label">Ready to deploy intelligence?</p>
+            <h4 className="footer-cta-panel__title">
+              Turn your next product into an AI-powered operating system.
+            </h4>
+          </div>
+          <a href="#contact-form" className="footer-cta-panel__button">
+            Start a build sprint
+            <ArrowRight className="h-4 w-4" />
+          </a>
+        </motion.div>
+
+        <motion.div className="footer-bottom" variants={fadeUp}>
           <p>&copy; 2026 Nocturnals Intellisoft. All rights reserved.</p>
-          <p>Built with heart for businesses worldwide</p>
-        </div>
-      </div>
+          <p>AI products, automation systems, and cloud delivery for modern businesses.</p>
+        </motion.div>
+      </motion.div>
     </footer>
   )
 }
