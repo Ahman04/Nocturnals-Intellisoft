@@ -375,36 +375,32 @@ textarea {
   margin: 1.05rem 1.05rem 0;
   overflow: hidden;
   border-radius: 0.9rem;
+  background: #eef4ff;
 }
 
 .service-card__media::before {
   content: '';
   position: absolute;
   inset: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.16) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.16) 1px, transparent 1px);
-  background-size: 28px 28px;
-  opacity: 0.28;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(9, 16, 35, 0.03), rgba(9, 16, 35, 0.18));
 }
 
 .service-card__media::after {
   content: '';
   position: absolute;
   inset: 0;
+  z-index: 1;
   background:
-    radial-gradient(circle at 30% 50%, rgba(255, 255, 255, 0.16), transparent 28%),
-    radial-gradient(circle at 72% 40%, rgba(255, 255, 255, 0.22), transparent 24%);
+    radial-gradient(circle at 18% 20%, rgba(255, 255, 255, 0.24), transparent 22%),
+    radial-gradient(circle at 78% 26%, rgba(255, 255, 255, 0.2), transparent 20%);
 }
 
-.service-card__media-icon {
-  position: absolute;
-  right: 1rem;
-  bottom: 0.9rem;
-  z-index: 1;
-  width: 4rem;
-  height: 4rem;
-  color: rgba(255, 255, 255, 0.82);
+.service-card__media-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .service-card__body {
@@ -426,38 +422,6 @@ textarea {
   color: #5b667c;
   font-size: 0.98rem;
   line-height: 1.45;
-}
-
-.service-card--agent .service-card__media {
-  background: linear-gradient(135deg, #6b2bbd, #ef5fa7 52%, #ff934a);
-}
-
-.service-card--ml .service-card__media {
-  background: linear-gradient(90deg, #5a1d89, #1f87e8);
-}
-
-.service-card--automation .service-card__media {
-  background: linear-gradient(135deg, #0b1523, #1c8b67);
-}
-
-.service-card--chat .service-card__media {
-  background: linear-gradient(135deg, #ff6b3d, #ffd95a 48%, #77c8ff);
-}
-
-.service-card--cloud .service-card__media {
-  background: linear-gradient(135deg, #f4f8ff, #85c3f7);
-}
-
-.service-card--api .service-card__media {
-  background: linear-gradient(90deg, #d04b2b, #1e8dff);
-}
-
-.service-card--custom .service-card__media {
-  background: linear-gradient(135deg, #ff8e2b, #2f86ff);
-}
-
-.service-card--data .service-card__media {
-  background: linear-gradient(135deg, #0f566f, #70d3b6);
 }
 
 .service-card--agent {
