@@ -1,5 +1,5 @@
 import { Bot, Palette, Settings2 } from 'lucide-react'
-import aboutImage from '../assets/images/HERO1.png'
+import aboutImage from '../assets/images/about.png'
 
 const highlights = [
   {

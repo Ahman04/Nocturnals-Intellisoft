@@ -35,7 +35,7 @@ function Navbar() {
             <p className="font-display text-[1.45rem] font-semibold leading-none tracking-tight text-white">
               Nocturnals
             </p>
-            <p className="mt-1 text-[10px] uppercase tracking-[0.34em] text-white/68">
+            <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.34em] text-white">
               Intellisoft
             </p>
           </div>

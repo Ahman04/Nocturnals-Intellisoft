@@ -9,6 +9,7 @@ import {
 import { motion } from 'framer-motion'
 import hero1 from '../assets/images/HERO1.png'
 import hero2 from '../assets/images/HERO2.png'
+import hero3 from '../assets/images/hero3.png'
 
 const metrics = [
   { label: 'Solutions delivered', value: '50+' },
@@ -21,8 +22,10 @@ const slides = [
     image: hero1,
     eyebrow: 'Welcome to the Future',
     title: ['Building Agentic AI', 'for Smarter Businesses'],
-    description:
-      'Nocturnals Intellisoft builds AI-driven software, intelligent automation, and modern digital systems for organizations ready to operate smarter.',
+    description: {
+      lead: 'Nocturnals Intellisoft',
+      rest: ' builds AI-driven software, intelligent automation, and modern digital systems for organizations ready to operate smarter.',
+    },
     primaryCta: 'Get a quote',
     secondaryCta: 'View Our Work',
   },
@@ -30,10 +33,23 @@ const slides = [
     image: hero2,
     eyebrow: 'AI-First Engineering',
     title: ['Agentic AI', 'for Smarter Operations'],
-    description:
-      'We create AI agents, workflow automation, and enterprise platforms that turn practical business processes into scalable intelligent systems.',
+    description: {
+      lead: 'Nocturnals Intellisoft',
+      rest: ' creates AI agents, workflow automation, and enterprise platforms that turn practical business processes into scalable intelligent systems.',
+    },
     primaryCta: 'Start a project',
     secondaryCta: 'Explore Solutions',
+  },
+  {
+    image: hero3,
+    eyebrow: 'Connected Intelligence',
+    title: ['Global Systems', 'Powered by AI'],
+    description: {
+      lead: 'Nocturnals Intellisoft',
+      rest: ' builds connected software platforms, automation systems, and enterprise AI solutions designed to operate reliably at scale.',
+    },
+    primaryCta: 'Build with us',
+    secondaryCta: 'See Capabilities',
   },
 ]
 
@@ -107,8 +123,11 @@ function Hero() {
               {slides[activeSlide].title[1]}
             </span>
           </h1>
-          <p className="mx-auto mt-5 max-w-[60rem] text-[1rem] leading-7 text-white/88 sm:text-[1.2rem] sm:leading-8">
-            {slides[activeSlide].description}
+          <p className="mx-auto mt-5 max-w-[60rem] text-[1rem] leading-7 text-white sm:text-[1.2rem] sm:leading-8">
+            <span className="font-bold text-white">
+              {slides[activeSlide].description.lead}
+            </span>
+            <span>{slides[activeSlide].description.rest}</span>
           </p>
 
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
@@ -150,7 +169,7 @@ function Hero() {
                 <p className="font-display text-[3rem] font-semibold tracking-[-0.04em] text-[#bfdbfe] lg:text-[3.35rem]">
                   {metric.value}
                 </p>
-                <p className="mt-1 text-[0.98rem] text-white/82">{metric.label}</p>
+                <p className="mt-1 text-[0.98rem] text-white">{metric.label}</p>
               </motion.div>
             ))}
           </div>
