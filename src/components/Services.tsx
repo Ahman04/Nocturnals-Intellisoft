@@ -10,14 +10,14 @@ import {
   Network,
   type LucideIcon,
 } from 'lucide-react'
-import aiImage from '../assets/images/services image/AI .png'
-import apiImage from '../assets/images/services image/API.png'
-import customSoftwareImage from '../assets/images/services image/Custom Software.png'
-import dataAnalyticsImage from '../assets/images/services image/Data analytics .png'
-import devopsImage from '../assets/images/services image/DevOps.png'
-import enterpriseImage from '../assets/images/services image/Enterprise.png'
-import consultancyImage from '../assets/images/services image/sofware consultancy.png'
-import webAppImage from '../assets/images/services image/webapp.png'
+import aiImage from '../assets/images/services image/AI.webp'
+import apiImage from '../assets/images/services image/API.webp'
+import customSoftwareImage from '../assets/images/services image/Custom Software.webp'
+import dataAnalyticsImage from '../assets/images/services image/Data analytics.webp'
+import devopsImage from '../assets/images/services image/DevOps.webp'
+import enterpriseImage from '../assets/images/services image/Enterprise.webp'
+import consultancyImage from '../assets/images/services image/sofware consultancy.webp'
+import webAppImage from '../assets/images/services image/webapp.webp'
 import { GlowCard } from './ui/spotlight-card'
 import { fadeUp, staggerContainer } from '../lib/motion'
 
@@ -151,6 +151,7 @@ function Services() {
                   alt={service.title}
                   className="service-card__media-image"
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
               <div className="service-card__body">

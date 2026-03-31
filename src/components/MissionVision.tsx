@@ -1,6 +1,6 @@
 import { Eye, Target } from 'lucide-react'
 import { motion } from 'framer-motion'
-import missionVisionImage from '../assets/images/misssionvisoion.png'
+import missionVisionImage from '../assets/images/misssionvisoion.webp'
 import { fadeLeft, fadeRight, staggerContainer } from '../lib/motion'
 
 type TextSegment = {
@@ -89,6 +89,8 @@ function MissionVision() {
             src={missionVisionImage}
             alt="Nocturnals Intellisoft team and AI workspace"
             className="mission-intro__image"
+            loading="lazy"
+            decoding="async"
           />
           <div className="mission-intro__overlay">
             <span className="mission-intro__chip">AI-first execution</span>

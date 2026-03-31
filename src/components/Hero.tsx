@@ -7,9 +7,9 @@ import {
   Sparkles,
 } from 'lucide-react'
 import { motion } from 'framer-motion'
-import hero1 from '../assets/images/HERO1.png'
-import hero2 from '../assets/images/HERO2.png'
-import hero3 from '../assets/images/hero3.png'
+import hero1 from '../assets/images/HERO1.webp'
+import hero2 from '../assets/images/HERO2.webp'
+import hero3 from '../assets/images/hero3.webp'
 import { fadeUp, staggerContainer } from '../lib/motion'
 
 const metrics = [

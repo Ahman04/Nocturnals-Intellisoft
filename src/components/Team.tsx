@@ -2,7 +2,7 @@ import { BriefcaseBusiness, GitBranch, Mail, Send } from 'lucide-react'
 import { motion } from 'framer-motion'
 import abdikhafarImage from '../assets/images/OUR TEAM IMAGE/abdikhafar.jpeg'
 import brianImage from '../assets/images/OUR TEAM IMAGE/brian.jpeg'
-import williamImage from '../assets/images/OUR TEAM IMAGE/william.png'
+import williamImage from '../assets/images/OUR TEAM IMAGE/william.webp'
 import { fadeUp, staggerContainer } from '../lib/motion'
 
 const members = [
@@ -68,6 +68,8 @@ function Team() {
                 src={member.image}
                 alt={member.name}
                 className="team-card__image"
+                loading="lazy"
+                decoding="async"
               />
             </div>
 

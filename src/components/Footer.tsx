@@ -1,6 +1,6 @@
 import { ArrowRight, Radar } from 'lucide-react'
 import { motion } from 'framer-motion'
-import footerImage from '../assets/images/footer.png'
+import footerImage from '../assets/images/footer.webp'
 import { fadeUp, staggerContainer } from '../lib/motion'
 
 const capabilityLinks = [
@@ -55,6 +55,8 @@ function Footer() {
                 src={footerImage}
                 alt="Abstract AI systems network"
                 className="footer-brand__image"
+                loading="lazy"
+                decoding="async"
               />
             </div>
           </motion.div>

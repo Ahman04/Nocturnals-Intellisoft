@@ -1,6 +1,6 @@
 import { Bot, Palette, Settings2 } from 'lucide-react'
 import { motion } from 'framer-motion'
-import aboutImage from '../assets/images/about.png'
+import aboutImage from '../assets/images/about.webp'
 import { fadeLeft, fadeRight, fadeUp, staggerContainer } from '../lib/motion'
 
 const highlights = [
@@ -92,6 +92,8 @@ function About() {
             src={aboutImage}
             alt="Nocturnals Intellisoft engineering workspace"
             className="about-image"
+            loading="lazy"
+            decoding="async"
           />
         </motion.div>
       </motion.div>
