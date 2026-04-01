@@ -1,6 +1,7 @@
-import { ArrowRight, Radar } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { motion } from 'framer-motion'
-import footerImage from '../assets/images/footer.webp'
+import logoImage from '../assets/images/logoNocturnals.png'
+import worldImage from '../assets/images/world.jpeg'
 import { fadeUp, staggerContainer } from '../lib/motion'
 
 const capabilityLinks = [
@@ -37,28 +38,46 @@ function Footer() {
         viewport={{ once: true, amount: 0.2 }}
         variants={staggerContainer}
       >
-        <motion.div className="footer-topline" variants={fadeUp}>
-          <span className="footer-topline__pill">
-            <Radar className="h-4 w-4" />
-            AI-native delivery network
-          </span>
-          <p className="footer-topline__copy">
-            We design products where automation, data, and machine intelligence
-            are part of the operating model from day one.
-          </p>
+        <motion.div className="footer-hero" variants={fadeUp}>
+          <div className="footer-hero__content">
+            <p className="footer-hero__label">Ready to deploy intelligence?</p>
+            <h4 className="footer-hero__title">
+              Turn your next product into an AI-powered operating system.
+            </h4>
+          </div>
+          <div className="footer-hero__visual" aria-hidden="true">
+            <img
+              src={worldImage}
+              alt=""
+              className="footer-hero__image"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <a href="#contact-form" className="footer-hero__button">
+            Start a build sprint
+            <ArrowRight className="h-4 w-4" />
+          </a>
         </motion.div>
 
         <div className="footer-grid">
           <motion.div className="footer-brand" variants={fadeUp}>
-            <div className="footer-brand__media">
+            <div className="footer-brand__head">
               <img
-                src={footerImage}
-                alt="Abstract AI systems network"
-                className="footer-brand__image"
+                src={logoImage}
+                alt="Nocturnals Intellisoft logo"
+                className="footer-brand__logo"
                 loading="lazy"
                 decoding="async"
               />
+              <div>
+                <h4 className="footer-brand__title">Nocturnals</h4>
+                <p className="footer-brand__eyebrow">Intellisoft</p>
+              </div>
             </div>
+            <p className="footer-brand__copy">
+              AI products, automation systems, and cloud delivery for modern businesses.
+            </p>
           </motion.div>
 
           <motion.div variants={fadeUp}>
@@ -101,22 +120,9 @@ function Footer() {
           </motion.div>
         </div>
 
-        <motion.div className="footer-cta-panel" variants={fadeUp}>
-          <div>
-            <p className="footer-cta-panel__label">Ready to deploy intelligence?</p>
-            <h4 className="footer-cta-panel__title">
-              Turn your next product into an AI-powered operating system.
-            </h4>
-          </div>
-          <a href="#contact-form" className="footer-cta-panel__button">
-            Start a build sprint
-            <ArrowRight className="h-4 w-4" />
-          </a>
-        </motion.div>
-
         <motion.div className="footer-bottom" variants={fadeUp}>
           <p>&copy; 2026 Nocturnals Intellisoft. All rights reserved.</p>
-          <p>AI products, automation systems, and cloud delivery for modern businesses.</p>
+          <p>Built with intelligence. Delivered with precision.</p>
         </motion.div>
       </motion.div>
     </footer>

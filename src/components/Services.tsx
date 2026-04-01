@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import {
   AppWindow,
+  ArrowUpRight,
   Blocks,
   BrainCircuit,
   Building2,
@@ -18,7 +19,6 @@ import devopsImage from '../assets/images/services image/DevOps.webp'
 import enterpriseImage from '../assets/images/services image/Enterprise.webp'
 import consultancyImage from '../assets/images/services image/sofware consultancy.webp'
 import webAppImage from '../assets/images/services image/webapp.webp'
-import { GlowCard } from './ui/spotlight-card'
 import { fadeUp, staggerContainer } from '../lib/motion'
 
 const services = [
@@ -28,7 +28,6 @@ const services = [
     title: 'Web & Mobile App Development',
     text: 'Modern, responsive websites and mobile applications built with cutting-edge technologies and best practices.',
     tone: 'service-card--agent',
-    glowColor: 'blue',
     label: 'Product Engineering',
   },
   {
@@ -37,7 +36,6 @@ const services = [
     title: 'Enterprise & Management Systems',
     text: 'Custom enterprise and management systems tailored to your business needs, including ERP, CRM, and more.',
     tone: 'service-card--automation',
-    glowColor: 'orange',
     label: 'Operations Core',
   },
   {
@@ -46,7 +44,6 @@ const services = [
     title: 'AI & Machine Learning Solutions',
     text: 'Advanced AI and machine learning models to automate tasks, enhance decision-making, and drive innovation across your business.',
     tone: 'service-card--ml',
-    glowColor: 'purple',
     label: 'AI Systems',
   },
   {
@@ -55,7 +52,6 @@ const services = [
     title: 'DevOps & Cloud Solutions',
     text: 'Streamline deployment, scaling, and performance monitoring through modern DevOps practices and cloud-native solutions.',
     tone: 'service-card--cloud',
-    glowColor: 'orange',
     label: 'Platform Reliability',
   },
   {
@@ -64,7 +60,6 @@ const services = [
     title: 'Software Consultancy',
     text: 'Expert guidance and strategic advice to help you make informed technology decisions and optimize your software solutions.',
     tone: 'service-card--chat',
-    glowColor: 'red',
     label: 'Strategic Advisory',
   },
   {
@@ -73,7 +68,6 @@ const services = [
     title: 'API Development & Integration',
     text: 'Robust RESTful and GraphQL APIs with seamless third-party integrations, microservices architecture, and comprehensive API documentation.',
     tone: 'service-card--api',
-    glowColor: 'red',
     label: 'Connected Systems',
   },
   {
@@ -82,7 +76,6 @@ const services = [
     title: 'Custom Software Development',
     text: 'We design and build scalable web and enterprise applications tailored to your business needs, ensuring performance, security, and long-term reliability.',
     tone: 'service-card--custom',
-    glowColor: 'green',
     label: 'Tailored Platforms',
   },
   {
@@ -91,7 +84,6 @@ const services = [
     title: 'Data Analytics & Intelligent Insights',
     text: 'We develop data-driven systems and dashboards that transform raw data into actionable insights for smarter business decisions.',
     tone: 'service-card--data',
-    glowColor: 'green',
     label: 'Decision Intelligence',
   },
 ] satisfies Array<{
@@ -100,9 +92,11 @@ const services = [
   title: string
   text: string
   tone: string
-  glowColor: 'blue' | 'purple' | 'green' | 'red' | 'orange'
   label: string
 }>
+
+const featuredServices = services.slice(0, 2)
+const capabilityServices = services.slice(2)
 
 function Services() {
   return (
@@ -115,14 +109,18 @@ function Services() {
         viewport={{ once: true, amount: 0.2 }}
       >
         <motion.p variants={fadeUp} className="services-heading__eyebrow">
-          Services
+          What we build
         </motion.p>
-        <motion.h2 variants={fadeUp} className="services-heading__title">
-          Smart software for modern operations.
-        </motion.h2>
-        <motion.p variants={fadeUp} className="services-heading__copy">
-          AI, analytics, cloud, and custom platforms built for real business use.
-        </motion.p>
+        <div className="services-heading__split">
+          <motion.h2 variants={fadeUp} className="services-heading__title">
+            Smart software for
+            <span> modern operations</span>
+          </motion.h2>
+          <motion.p variants={fadeUp} className="services-heading__copy">
+            AI, analytics, cloud, and custom platforms built for real business
+            use. Every solution is engineered for scale.
+          </motion.p>
+        </div>
       </motion.div>
 
       <motion.div
@@ -132,39 +130,73 @@ function Services() {
         whileInView="visible"
         viewport={{ once: true, amount: 0.14 }}
       >
-        {services.map((service) => (
+        {featuredServices.map((service) => (
           <motion.article
             key={service.title}
-            className="service-card-shell"
+            className={`service-card service-card--featured ${service.tone}`}
             variants={fadeUp}
             whileHover={{ y: -10 }}
             transition={{ duration: 0.24, ease: 'easeOut' }}
           >
-            <GlowCard
-              customSize
-              glowColor={service.glowColor}
-              className={`service-card ${service.tone} h-full w-full`}
-            >
-              <div className="service-card__media">
-                <img
-                  src={service.image}
-                  alt={service.title}
-                  className="service-card__media-image"
-                  loading="lazy"
-                  decoding="async"
-                />
+            <div className="service-card__media">
+              <img
+                src={service.image}
+                alt={service.title}
+                className="service-card__media-image"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div className="service-card__overlay" />
+            <div className="service-card__body">
+              <div className="service-card__meta">
+                <span className="service-card__pill">{service.label}</span>
+                <span className="service-card__icon">
+                  <ArrowUpRight className="h-4 w-4" />
+                </span>
               </div>
-              <div className="service-card__body">
-                <div className="service-card__meta">
-                  <span className="service-card__pill">{service.label}</span>
-                  <span className="service-card__icon">
-                    <service.icon className="h-4 w-4" />
-                  </span>
-                </div>
-                <h3 className="service-card__title">{service.title}</h3>
-                <p className="service-card__text">{service.text}</p>
+              <h3 className="service-card__title">{service.title}</h3>
+              <p className="service-card__text">{service.text}</p>
+            </div>
+          </motion.article>
+        ))}
+      </motion.div>
+
+      <motion.div
+        className="services-subgrid"
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.14 }}
+      >
+        {capabilityServices.map((service) => (
+          <motion.article
+            key={service.title}
+            className={`service-card service-card--compact ${service.tone}`}
+            variants={fadeUp}
+            whileHover={{ y: -8 }}
+            transition={{ duration: 0.22, ease: 'easeOut' }}
+          >
+            <div className="service-card__media">
+              <img
+                src={service.image}
+                alt={service.title}
+                className="service-card__media-image"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div className="service-card__overlay" />
+            <div className="service-card__body">
+              <div className="service-card__meta">
+                <span className="service-card__pill">{service.label}</span>
+                <span className="service-card__icon">
+                  <ArrowUpRight className="h-4 w-4" />
+                </span>
               </div>
-            </GlowCard>
+              <h3 className="service-card__title">{service.title}</h3>
+              <p className="service-card__text">{service.text}</p>
+            </div>
           </motion.article>
         ))}
       </motion.div>

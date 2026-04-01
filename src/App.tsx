@@ -39,16 +39,18 @@ function App() {
       <div ref={progressRef} className="scroll-progress" />
       <Navbar />
       <Hero />
-      <About />
-      <MissionVision />
-      <Services />
-      <WhyChooseUs />
-      <Testimonials />
-      <Industries />
-      <Technologies />
-      <Team />
-      <Contact />
-      <Footer />
+      <div className="content-shell">
+        <About />
+        <MissionVision />
+        <Services />
+        <WhyChooseUs />
+        <Testimonials />
+        <Industries />
+        <Technologies />
+        <Team />
+        <Contact />
+        <Footer />
+      </div>
     </div>
   )
 }

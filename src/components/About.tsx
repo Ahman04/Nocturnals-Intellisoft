@@ -25,14 +25,43 @@ function About() {
   return (
     <section id="about" className="about-shell ambient-section">
       <motion.div
-        className="about-copy"
+        className="about-media"
         variants={fadeLeft}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.25 }}
       >
+        <motion.div
+          className="about-image-frame"
+          whileHover={{ y: -6, rotate: -1, scale: 1.01 }}
+          transition={{ duration: 0.3, ease: 'easeOut' }}
+        >
+          <img
+            src={aboutImage}
+            alt="Nocturnals Intellisoft engineering workspace"
+            className="about-image"
+            loading="lazy"
+            decoding="async"
+          />
+          <div className="about-image-badge">
+            <span className="about-image-badge__label">Since 2024</span>
+            <span className="about-image-badge__text">Building intelligent systems</span>
+          </div>
+        </motion.div>
+      </motion.div>
+
+      <motion.div
+        className="about-copy"
+        variants={fadeRight}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.25 }}
+      >
         <p className="section-kicker">About us</p>
-        <h2 className="about-title">About Nocturnals Intellisoft</h2>
+        <h2 className="about-title">
+          About Nocturnals
+          <span> Intellisoft</span>
+        </h2>
 
         <p className="about-paragraph">
           We are an agentic AI and software company focused on building
@@ -73,28 +102,6 @@ function About() {
               </motion.div>
             )
           })}
-        </motion.div>
-      </motion.div>
-
-      <motion.div
-        className="about-media"
-        variants={fadeRight}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.25 }}
-      >
-        <motion.div
-          className="about-image-frame"
-          whileHover={{ y: -6, rotate: -1, scale: 1.01 }}
-          transition={{ duration: 0.3, ease: 'easeOut' }}
-        >
-          <img
-            src={aboutImage}
-            alt="Nocturnals Intellisoft engineering workspace"
-            className="about-image"
-            loading="lazy"
-            decoding="async"
-          />
         </motion.div>
       </motion.div>
     </section>
